@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 public class LogAnalyser {
 
-    static HashMap<Integer, LogModel> map = new HashMap<>();
+    static HashMap<String, LogModel> map = new HashMap<>();
 
     public static void main(String[] args) {
 
@@ -28,13 +28,11 @@ public class LogAnalyser {
                 JsonElement e = p.next();
                 if (e.isJsonObject()) {
                     LogModel m = gson.fromJson(e, LogModel.class);
-//                    System.out.println(m.toString());
-//                    System.out.println(m.hashCode());
-                    if (map.containsKey(m.hashCode())) {
-                        System.out.println(calculateEventTime(m, map.get(m.hashCode())));
-                        calculateEventTime(m, map.get(m.hashCode()));
+                    if (map.containsKey(m.getId())) {
+                        System.out.println(calculateEventTime(m, map.get(m.getId())));
+                        calculateEventTime(m, map.get(m.getId()));
                     } else {
-                        map.put(m.hashCode(), m);
+                        map.put(m.getId(), m);
                     }
                 }
             }
@@ -45,6 +43,7 @@ public class LogAnalyser {
     }
 
     static Long calculateEventTime(LogModel one, LogModel two) {
+        map.remove(one.getId());
         return Math.abs(one.getTimestamp() - two.getTimestamp());
     }
 
