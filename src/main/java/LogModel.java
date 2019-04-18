@@ -10,6 +10,14 @@ public class LogModel {
         return this.id;
     }
 
+    public String getHost() {
+        return host == null ? "" : host;
+    }
+
+    public String getType() {
+        return type == null ? "" : type;
+    }
+
     public long getTimestamp() {
         return this.timestamp;
     }

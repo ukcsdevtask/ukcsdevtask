@@ -20,12 +20,11 @@ dependencies {
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
-apply from: 'HSQLDB.gradle'
 
 
 task runAnalyser(type: JavaExec) {
-    startDatabase
+    println 'starting Analyser'
     classpath sourceSets.main.runtimeClasspath
     main = "LogAnalyser"
-    
+    args = ["$arg1"]
 }
